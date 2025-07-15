@@ -37,8 +37,10 @@ GK_MKBLAS_PROTO(gk_idx, gk_idx_t, gk_idx_t)
  *-------------------------------------------------------------*/
 FILE *gk_fopen(char *, char *, const char *);
 void gk_fclose(FILE *);
+#ifdef __linux__
 ssize_t gk_read(int fd, void *vbuf, size_t count);
 ssize_t gk_write(int fd, void *vbuf, size_t count);
+#endif // __linux__
 ssize_t gk_getline(char **lineptr, size_t *n, FILE *stream);
 char **gk_readfile(char *fname, size_t *r_nlines);
 int32_t *gk_i32readfile(char *fname, size_t *r_nlines);

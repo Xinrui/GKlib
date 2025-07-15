@@ -46,7 +46,7 @@ void gk_fclose(FILE *fp)
   fclose(fp);
 }
 
-
+#ifdef __linux__
 /*************************************************************************/
 /*! This function is a wrapper around the read() function that ensures 
     that all data is been read, by issuing multiple read requests.
@@ -89,7 +89,7 @@ ssize_t gk_write(int fd, void *vbuf, size_t count)
 
   return count;
 }
-
+#endif // __linux__
 
 /*************************************************************************/
 /*! This function is the GKlib implementation of glibc's getline()
