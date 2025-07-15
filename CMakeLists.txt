@@ -75,6 +75,10 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   PUBLIC $<$<PLATFORM_ID:Linux>:m>)
 
+target_compile_options(${PROJECT_NAME} PRIVATE
+  $<IF:$<C_COMPILER_ID:MSVC>,/w,-w>
+)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
   SOVERSION ${PROJECT_VERSION_MAJOR}
   VERSION   ${PROJECT_VERSION})
