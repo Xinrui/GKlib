@@ -32,7 +32,6 @@
 
 
 #ifdef __MSC__ 
-  #include "gk_ms_stdint.h"
   #include "gk_ms_inttypes.h"
   #include "gk_ms_stat.h"
   #include "win32/adapt.h"

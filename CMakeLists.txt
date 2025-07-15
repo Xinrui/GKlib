@@ -60,7 +60,7 @@ target_sources(${PROJECT_NAME}
           include/gk_mkpqueue2.h include/gk_mkrandom.h include/gk_mksort.h 
           include/gk_mkutils.h include/gk_proto.h include/gk_struct.h
           include/gk_types.h include/gkregex.h include/gk_ms_inttypes.h 
-          include/gk_ms_stat.h include/gk_ms_stdint.h
+          include/gk_ms_stat.h
           # the following are shims for win32 systems
           $<$<PLATFORM_ID:Windows>:src/win32/adapt.c
                                    include/win32/adapt.h>)
@@ -73,7 +73,7 @@ target_include_directories(${PROJECT_NAME}
          $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(${PROJECT_NAME}
-  PUBLIC $<$<NOT:$<C_COMPILER_ID:MSVC>>:m>)
+  PUBLIC $<$<PLATFORM_ID:Linux>:m>)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   SOVERSION ${PROJECT_VERSION_MAJOR}
@@ -158,7 +158,11 @@ target_compile_definitions(${PROJECT_NAME}
          $<$<BOOL:${HAVE_REGEX_H}>:HAVE_REGEX_H>
          $<$<BOOL:${USE_GKREGEX}>:USE_GKREGEX>
          $<$<BOOL:${HAVE_GETLINE}>:HAVE_GETLINE>
-         __thread=${TLS_NAME})
+         )
+
+if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC __thread=${TLS_NAME})
+endif()
 
 target_compile_options(${PROJECT_NAME}
   PUBLIC $<$<AND:$<BOOL:${GPROF}>,$<BOOL:${HAVE_GPROF_SUPPORT}>>:-pg>)
